@@ -11,11 +11,11 @@ export type LayoutProps = {
   page: ReactNode
   back: ReactNode
   next: ReactNode
-} 
+}
 
 
 export function Layout(props: LayoutProps) {
-  const {title, page, stepper, back, next } = props
+  const { title, page, stepper, back, next } = props
   return (
     <Grid container spacing={2}>
       <Grid item xs={10}>
