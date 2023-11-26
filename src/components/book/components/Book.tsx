@@ -20,6 +20,7 @@ export function Book(props: BookProps) {
   return (
     <Layout
       title={props.title ?? ""}
+      caption={titles[index]}
       stepper={
         <Steps titles={titles} current={index} />
       }
