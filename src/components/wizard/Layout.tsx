@@ -14,7 +14,7 @@ export type LayoutProps = {
 } 
 
 
-function Layout(props: LayoutProps) {
+export function Layout(props: LayoutProps) {
   const {title, page, stepper, back, next } = props
   return (
     <Grid container spacing={2}>
