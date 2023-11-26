@@ -20,10 +20,20 @@ export function Book(props: BookProps) {
   return (
     <Layout
       title={props.title ?? ""}
-      stepper={<Steps titles={titles} current={index} />}
+      stepper={
+        <Steps titles={titles} current={index} />
+      }
       page={page}
-      back={<Button onClick={back} disabled={index === 0}>Back</Button>}
-      next={<Button onClick={next} disabled={index >= max}>Next</Button>}
+      back={
+        <Button variant="contained" onClick={back} disabled={index === 0}>
+          Back
+        </Button>
+      }
+      next={
+        <Button variant="contained" onClick={next} disabled={index >= max}>
+          Next
+        </Button>
+      }
     />
   )
 }
