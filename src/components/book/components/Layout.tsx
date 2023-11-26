@@ -20,7 +20,7 @@ export function Layout(props: LayoutProps) {
     <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center">
 
       <Grid item xs={12} justifyContent="flex-start">
-        <Typography variant='h2' >{title}</Typography> 
+        <Typography variant='h5' >{title}</Typography> 
       </Grid>
 
       <Grid item xs={12}>

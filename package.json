@@ -8,8 +8,9 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "sb": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "start": "storybook dev -p 6006"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -42,3 +43,6 @@
     "vite": "^5.0.0"
   }
 }
+
+
+
