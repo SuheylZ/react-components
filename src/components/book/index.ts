@@ -10,4 +10,5 @@ export { Layout } from "./components/Layout.jsx"
 export { Steps } from "./components/Steps.jsx"
 
 export { usePageRef } from "./hooks/usePageRef"
+export { usePageHandler } from "./hooks/usePageHandler.js"
 
