@@ -37,9 +37,11 @@ export function Book(props: BookProps) {
 
   useEffect(() => {
     const p = pages.get(index) as IPage
-    const h = p.handler as RefObject<IPageHandler>
-    if (h && h.current?.load && !!p.state)
-      h.current.load(p.state)
+    if (p) {
+      const h = p.handler as RefObject<IPageHandler>
+      if (h && h.current?.load && !!p.state)
+        h.current.load(p.state)
+    }
   }, [index])
 
   return (

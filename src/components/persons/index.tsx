@@ -42,70 +42,32 @@ export function Person(props: unknown, ref: Ref<IPageHandler>) {
 
 
   return (
+
     <Layout
-      name={
-        <>
-          <TextField id="name"
-            name="name"
-            label="Full Name"
-            value={formik.values.name}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-          />
-          {formik.errors.name}
-        </>
-      }
-      description={
-        <>
-          <TextField id="description"
-            multiline={true}
-            maxRows={5}
-            name="description"
-            label="Description"
-            value={formik.values.description}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-          />
-          {formik.errors.description}
-        </>
-      }
-    />
-    <Layout
-      name={
-        <>
-          <TextField id="name"
-            name="name"
-            label="Full Name"
-            value={formik.values.name}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-          />
-          {formik.errors.name}
-        </>
-      }
-      description={
-        <>
-          <TextField id="description"
-            multiline={true}
-            maxRows={5}
-            name="description"
-            label="Description"
-            value={formik.values.description}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-          />
-          {formik.errors.description}
-        </>
-      }
+      name={<TextField id="name"
+        name="name"
+        label="Full Name"
+        value={formik.values.name}
+        onBlur={formik.handleBlur}
+        onChange={formik.handleChange}
+      />}
+      description={<TextField id="description"
+        multiline={true}
+        maxRows={5}
+        name="description"
+        label="Description"
+        value={formik.values.description}
+        onBlur={formik.handleBlur}
+        onChange={formik.handleChange}
+      />}
+      error={{
+        name: formik.errors.name,
+        description: formik.errors.description
+      }}
     />
   )
 }
 
 export default React.forwardRef(Person)
-
-
-
-export default React.forwardRef(Person)
-
 
 
