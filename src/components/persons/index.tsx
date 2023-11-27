@@ -7,6 +7,7 @@ import * as y from "yup"
 import { useFormik } from "formik"
 import { Layout } from './Layout'
 import { IPageHandler } from '../book'
+import { usePageHandler } from '../book/hooks/usePageHandler'
 
 
 export type PersonData = {
@@ -32,15 +33,15 @@ export function Person(props: unknown, ref: Ref<IPageHandler>) {
     onSubmit: (_) => { }
   })
 
-  useImperativeHandle(ref, () => {
-    return {
+  usePageHandler(ref,
+    {
       validate: async () => {
         const ret = await formik.validateForm()
         const canContinue = Object.keys(ret).length === 0
         return new Promise<boolean>(r => r(canContinue))
       }
-    } as IPageHandler
-  })
+    })
+
 
   return (
     <Layout
