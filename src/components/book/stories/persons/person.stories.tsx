@@ -12,6 +12,6 @@ type Story = StoryObj<typeof Person>
 
 export const story: Story = {
   name: "Basic",
-  render: () => <Person title="Samuel" description="No description" />
+  render: () => <Person />
 }
 

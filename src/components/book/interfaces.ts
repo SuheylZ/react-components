@@ -7,12 +7,14 @@ export interface IPageEvents {
 }
 
 export interface IPage {
+  id: string
   title: string
   component: ReactNode
   enabled?: boolean
   handler?: Ref<IPageEvents>
   state: unknown | undefined
 }
+
 
 
 
