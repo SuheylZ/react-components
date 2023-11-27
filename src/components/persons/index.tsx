@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// eslint-disable @typescript-eslint/no-unused-vars
 
-import React, { Ref, useImperativeHandle } from 'react'
+import React, { Ref } from 'react'
 import { TextField } from '@mui/material'
 import * as y from "yup"
 import { useFormik } from "formik"
@@ -29,16 +27,16 @@ export function Person(props: unknown, ref: Ref<IPageHandler>) {
       name: "",
       description: ""
     } as PersonData,
-    validate: (_) => { },
-    onSubmit: (_) => { }
+    onSubmit: () => { }
   })
 
   usePageHandler(ref,
     {
+      load: v => formik.setValues(JSON.parse(v as string)),
+      save: () => JSON.stringify(formik.values),
       validate: async () => {
         const ret = await formik.validateForm()
-        const canContinue = Object.keys(ret).length === 0
-        return new Promise<boolean>(r => r(canContinue))
+        return new Promise<boolean>(r => r(Object.keys(ret).length === 0))
       }
     })
 

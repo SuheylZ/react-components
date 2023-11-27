@@ -11,5 +11,8 @@ export interface IPage {
   component: ReactNode
   enabled?: boolean
   handler?: Ref<IPageHandler>
+  state: unknown | undefined
 }
+
+
 
