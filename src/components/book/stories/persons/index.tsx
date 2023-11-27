@@ -2,32 +2,29 @@
 import React, { Ref } from 'react'
 import { TextField } from '@mui/material'
 import * as y from "yup"
-import { useFormik } from "formik"
 import { Layout } from './Layout'
-import { IPageEvents, PageEventsBase, usePageEvents } from '../book'
+import { IPageEvents, PageEventsBase, usePageEvents } from '../../../book'
+import useFormik2 from '../../../../hooks/useFormik2'
+import { PersonData } from './data'
 
 
-export type PersonData = {
-  name: string
-  description: string
-}
-
-const schema = y.object({
+const schema = y.object<PersonData>({
   name: y.string().required("name is required"),
-  description: y.string().max(128, "only 128 letters allowed")
+  age: y.number().min(18, "you must be 18 years old or above").max(100, "only people with 100 years age are allowed"),
+  notes: y.string()
 })
 
 
 export function Person(props: unknown, ref: Ref<IPageEvents>) {
 
-  const formik = useFormik({
-    validationSchema: schema,
-    initialValues: {
+  const formik = useFormik2(
+    schema,
+    {
       name: "",
-      description: ""
+      age: 18,
+      notes: ""
     } as PersonData,
-    onSubmit: () => { }
-  })
+  )
 
   usePageEvents(ref,
     new class MyClass extends PageEventsBase {
@@ -39,7 +36,7 @@ export function Person(props: unknown, ref: Ref<IPageEvents>) {
       }
       override async onValidate() {
         const ret = await formik.validateForm()
-        return new Promise<boolean>(r => r(Object.keys(ret).length === 0))
+        return Object.keys(ret).length === 0
       }
     })
 
@@ -50,7 +47,7 @@ export function Person(props: unknown, ref: Ref<IPageEvents>) {
       name={<TextField id="name"
         name="name"
         label="Full Name"
-        value={formik.values.name}
+        value={formik.values["name"]}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
       />}
@@ -59,13 +56,13 @@ export function Person(props: unknown, ref: Ref<IPageEvents>) {
         maxRows={5}
         name="description"
         label="Description"
-        value={formik.values.description}
+        value={formik.values["description"]}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
       />}
       error={{
-        name: formik.errors.name,
-        description: formik.errors.description
+        name: formik.errors["name"] as string,
+        description: formik.errors["description"] as string
       }}
     />
   )

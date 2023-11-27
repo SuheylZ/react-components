@@ -1,4 +1,4 @@
-import React, { ReactElement, RefObject, useEffect, useMemo } from 'react'
+import React, { ReactElement, RefObject, useCallback, useEffect, useMemo } from 'react'
 import Layout from './Layout.jsx'
 import { Button } from '@mui/material'
 import useBookLogic from '../hooks/useBookLogic.js'
@@ -10,6 +10,7 @@ import { IPage, IPageEvents } from '../interfaces.js'
 export type BookProps = {
   title?: string
   children?: ReactElement[] | ReactElement
+  onDone?: (arg: Map<string, unknown>) => Promise<void>
 }
 
 
@@ -19,7 +20,14 @@ export function Book(props: BookProps) {
   const titles = useMemo(() => Array.from(pages.values()).map(x => x.title), [pages])
   const page = pages.get(index)?.component ?? <></>
 
-  const next = () => {
+  const isNextEnabled = useCallback(() => {
+    const hasMaxReached = index === max
+    const isDoneAvailable = !!props.onDone
+
+    return isDoneAvailable || !hasMaxReached
+  }, [index, max])
+
+  const next = useCallback(() => {
     const p = pages.get(index) as IPage
     const h = p.handler as RefObject<IPageEvents>
     if (h && h.current?.onValidate) {
@@ -31,6 +39,17 @@ export function Book(props: BookProps) {
       })
     }
     else moveNext()
+  }, [index, pages])
+
+  const done = async () => {
+    if (props.onDone) {
+      const map = new Map<string, unknown>()
+      for (const page of pages.values()) {
+        if (page.state)
+          map.set(page.id, page.state)
+      }
+      await props.onDone(map)
+    }
   }
 
   useEffect(() => {
@@ -49,7 +68,12 @@ export function Book(props: BookProps) {
       stepper={<Steps titles={titles} current={index} />}
       page={page}
       back={<Button variant="contained" onClick={back} disabled={index === 0}> Back </Button>}
-      next={<Button variant="contained" onClick={next} disabled={index >= max}> Next </Button>}
+      next={<Button variant="contained" onClick={async () => {
+        if (index === max)
+          await done()
+        else
+          next()
+      }} disabled={!isNextEnabled()}> {index === max ? (props.onDone) ? "Finish" : "Next" : "Next"} </Button>}
     />
   )
 }

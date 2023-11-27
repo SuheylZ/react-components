@@ -29,6 +29,7 @@ export function useBookLogic(
         if (!set.has(id)) {
           const idx = map.size
           map.set(idx, {
+            id: id,
             title: title,
             component: component,
             enabled: true,
@@ -70,6 +71,7 @@ export function useBookLogic(
 }
 
 export default useBookLogic
+
 
 
 
