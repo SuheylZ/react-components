@@ -4,8 +4,7 @@ import { TextField } from '@mui/material'
 import * as y from "yup"
 import { useFormik } from "formik"
 import { Layout } from './Layout'
-import { IPageHandler } from '../book'
-import { usePageHandler } from '../book/hooks/usePageHandler'
+import { IPageEvents, PageEventsBase, usePageEvents } from '../book'
 
 
 export type PersonData = {
@@ -19,7 +18,7 @@ const schema = y.object({
 })
 
 
-export function Person(props: unknown, ref: Ref<IPageHandler>) {
+export function Person(props: unknown, ref: Ref<IPageEvents>) {
 
   const formik = useFormik({
     validationSchema: schema,
@@ -30,11 +29,15 @@ export function Person(props: unknown, ref: Ref<IPageHandler>) {
     onSubmit: () => { }
   })
 
-  usePageHandler(ref,
-    {
-      load: v => formik.setValues(JSON.parse(v as string)),
-      save: () => JSON.stringify(formik.values),
-      validate: async () => {
+  usePageEvents(ref,
+    new class MyClass extends PageEventsBase {
+      override onLoad(args: object | string | unknown) {
+        formik.setValues(JSON.parse(args as string))
+      }
+      override onSave(): object | string | unknown {
+        return JSON.stringify(formik.values)
+      }
+      override async onValidate() {
         const ret = await formik.validateForm()
         return new Promise<boolean>(r => r(Object.keys(ret).length === 0))
       }

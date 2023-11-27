@@ -1,9 +1,10 @@
 import { useRef } from "react"
-import { IPageHandler } from "../interfaces"
+import { IPageEvents } from "../interfaces"
 
 export function usePageRef() {
-  return useRef<IPageHandler>(null)
+  return useRef<IPageEvents>(null)
 }
 
 export default usePageRef
+
 

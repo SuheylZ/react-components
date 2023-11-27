@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import React, { ReactElement, Ref } from 'react'
-import { IPageHandler } from '../interfaces'
+import { IPageEvents } from '../interfaces'
 
 export type PageProps = {
   id: string
   title: string
   component: ReactElement
   enabled?: boolean
-  handler?: Ref<IPageHandler>
+  handler?: Ref<IPageEvents>
 }
 
 export function Page(_: PageProps) {
