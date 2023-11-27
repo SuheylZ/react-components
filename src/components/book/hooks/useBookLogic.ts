@@ -32,7 +32,8 @@ export function useBookLogic(
             title: title,
             component: component,
             enabled: true,
-            handler: handler
+            handler: handler,
+            state: undefined
           } as IPage)
         } else throw new Error(`duplicate pages cannot be added ${id}`)
       }
@@ -69,4 +70,6 @@ export function useBookLogic(
 }
 
 export default useBookLogic
+
+
 

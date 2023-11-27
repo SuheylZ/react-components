@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// eslint-disable @typescript-eslint/no-unused-vars
 
-import React, { Ref, useImperativeHandle } from 'react'
+import React, { Ref } from 'react'
 import { TextField } from '@mui/material'
 import * as y from "yup"
 import { useFormik } from "formik"
 import { Layout } from './Layout'
 import { IPageHandler } from '../book'
+import { usePageHandler } from '../book/hooks/usePageHandler'
 
 
 export type PersonData = {
@@ -28,19 +27,19 @@ export function Person(props: unknown, ref: Ref<IPageHandler>) {
       name: "",
       description: ""
     } as PersonData,
-    validate: (_) => { },
-    onSubmit: (_) => { }
+    onSubmit: () => { }
   })
 
-  useImperativeHandle(ref, () => {
-    return {
+  usePageHandler(ref,
+    {
+      load: v => formik.setValues(JSON.parse(v as string)),
+      save: () => JSON.stringify(formik.values),
       validate: async () => {
         const ret = await formik.validateForm()
-        const canContinue = Object.keys(ret).length === 0
-        return new Promise<boolean>(r => r(canContinue))
+        return new Promise<boolean>(r => r(Object.keys(ret).length === 0))
       }
-    } as IPageHandler
-  })
+    })
+
 
   return (
     <Layout
@@ -71,8 +70,40 @@ export function Person(props: unknown, ref: Ref<IPageHandler>) {
         </>
       }
     />
+    <Layout
+      name={
+        <>
+          <TextField id="name"
+            name="name"
+            label="Full Name"
+            value={formik.values.name}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+          />
+          {formik.errors.name}
+        </>
+      }
+      description={
+        <>
+          <TextField id="description"
+            multiline={true}
+            maxRows={5}
+            name="description"
+            label="Description"
+            value={formik.values.description}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+          />
+          {formik.errors.description}
+        </>
+      }
+    />
   )
 }
+
+export default React.forwardRef(Person)
+
+
 
 export default React.forwardRef(Person)
 

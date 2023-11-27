@@ -1,9 +1,7 @@
 
 import { Meta, StoryObj } from "@storybook/react"
-import { Book, Page } from "./index"
+import { Book, Page, usePageRef } from "./index"
 import Person from "../persons"
-import { useRef } from "react"
-import { IPageHandler } from "./interfaces"
 
 const meta: Meta<typeof Book> = {
   title: "Components/Book",
@@ -14,7 +12,7 @@ type Story = StoryObj<typeof Book>
 
 
 function MyBook() {
-  const ref = useRef<IPageHandler>(null)
+  const ref = usePageRef()
 
   return (
     <Book title="My Book">

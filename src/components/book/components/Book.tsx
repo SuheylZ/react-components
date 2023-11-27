@@ -1,4 +1,4 @@
-import React, { ReactElement, RefObject, useMemo } from 'react'
+import React, { ReactElement, RefObject, useEffect, useMemo } from 'react'
 import Layout from './Layout.jsx'
 import { Button } from '@mui/material'
 import useBookLogic from '../hooks/useBookLogic.js'
@@ -24,11 +24,23 @@ export function Book(props: BookProps) {
     const h = p.handler as RefObject<IPageHandler>
     if (h && h.current?.validate) {
       h.current.validate().then(ret => {
-        if (ret) innerNext()
+        if (ret) {
+          if (h.current?.save) {
+            p.state = h.current.save()
+          }
+          innerNext()
+        }
       })
     }
     else innerNext()
   }
+
+  useEffect(() => {
+    const p = pages.get(index) as IPage
+    const h = p.handler as RefObject<IPageHandler>
+    if (h && h.current?.load && !!p.state)
+      h.current.load(p.state)
+  }, [index])
 
   return (
     <Layout
