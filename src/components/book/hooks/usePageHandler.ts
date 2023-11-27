@@ -1,6 +1,8 @@
 import { Ref, useImperativeHandle } from "react"
-import { IPageHandler } from "../interfaces"
+import { IPageEvents } from "../interfaces"
 
-export function usePageHandler(ref: Ref<IPageHandler>, impl: IPageHandler) {
+export function usePageEvents(ref: Ref<IPageEvents>, impl: IPageEvents) {
   useImperativeHandle(ref, () => impl)
 }
+
+
