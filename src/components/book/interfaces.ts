@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import { ReactNode, Ref } from "react"
 
 export interface IPageHandler {
   validate: () => Promise<boolean>
@@ -10,6 +10,6 @@ export interface IPage {
   title: string
   component: ReactNode
   enabled?: boolean
-  handler?: IPageHandler
+  handler?: Ref<IPageHandler>
 }
 

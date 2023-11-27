@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable @typescript-eslint/no-unused-vars
 
-import React from 'react'
+import React, { Ref, useImperativeHandle } from 'react'
 import { TextField } from '@mui/material'
 import * as y from "yup"
 import { useFormik } from "formik"
 import { Layout } from './Layout'
+import { IPageHandler } from '../book'
 
 
 export type PersonData = {
@@ -19,7 +20,7 @@ const schema = y.object({
 })
 
 
-export function Person() {
+export function Person(props: unknown, ref: Ref<IPageHandler>) {
 
   const formik = useFormik({
     validationSchema: schema,
@@ -31,6 +32,15 @@ export function Person() {
     onSubmit: (_) => { }
   })
 
+  useImperativeHandle(ref, () => {
+    return {
+      validate: async () => {
+        const ret = await formik.validateForm()
+        const canContinue = Object.keys(ret).length === 0
+        return new Promise<boolean>(r => r(canContinue))
+      }
+    } as IPageHandler
+  })
 
   return (
     <Layout
@@ -64,7 +74,7 @@ export function Person() {
   )
 }
 
-export default Person
+export default React.forwardRef(Person)
 
 
 

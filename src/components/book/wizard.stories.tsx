@@ -2,16 +2,34 @@
 import { Meta, StoryObj } from "@storybook/react"
 import { Book, Page } from "./index"
 import Person from "../persons"
+import { useRef } from "react"
+import { IPageHandler } from "./interfaces"
 
 const meta: Meta<typeof Book> = {
   title: "Components/Book",
   component: Book
 }
-
 export default meta
-
-
 type Story = StoryObj<typeof Book>
+
+
+function MyBook() {
+  const ref = useRef<IPageHandler>(null)
+
+  return (
+    <Book title="My Book">
+      <Page id="1" title="Page 1" component={<Person ref={ref} />} handler={ref} />
+      <Page id="2" title="Page 2" component={<>Second Page</>} />
+      <Page id="3" title="Page 3" component={<>Third Page</>} />
+    </Book>
+  )
+}
+
+
+/**
+ * ========
+ * STORIES  
+*/
 
 export const story0: Story = {
   name: "No Pages",
@@ -30,10 +48,5 @@ export const story1: Story = {
 
 export const story2: Story = {
   name: "Multiple Page",
-  render: () => (
-    <Book title="My Book">
-      <Page id="1" title="Page 1" component={<Person />} />
-      <Page id="2" title="Page 2" component={<>Second Page</>} />
-      <Page id="3" title="Page 3" component={<>Third Page</>} />
-    </Book>)
+  render: () => (<MyBook />)
 }
