@@ -1,4 +1,4 @@
-import { IPageEvents as IPageEvents } from "./utils/interfaces"
+import { IPageEvents as IPageEvents } from "./interfaces"
 
 export class PageEventsBase implements IPageEvents {
   onValidate(): Promise<boolean> {

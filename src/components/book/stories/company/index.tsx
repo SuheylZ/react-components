@@ -6,7 +6,7 @@ import useFormik2 from '../../../../hooks/useFormik2'
 import CompanyData from './data'
 import * as y from "yup"
 import { usePageEvents } from '../../hooks/usePageEvents'
-import PageEventsBase from '../../PageEventsBase'
+import PageEventsBase from '../../utils/PageEventsBase'
 import { IPageEvents } from '../../utils/interfaces'
 
 function Company(_: unknown, ref: Ref<IPageEvents>) {
