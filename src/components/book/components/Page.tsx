@@ -11,9 +11,7 @@ export type PageProps = {
   handler?: Ref<IPageEvents>
 }
 
-export function Page(_: PageProps) {
-  return (<></>)
-}
-
+export const Page = (_: PageProps) => <></>
 export const PageType = (<Page id="" title="" component={<></>} />).type
+
 export default Page
