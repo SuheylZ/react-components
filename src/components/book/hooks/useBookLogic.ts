@@ -49,8 +49,11 @@ export function useBookLogic(data: BookProps): BookLogic {
   )
 
   // Step 5: calculate when the back/next button should not be available, ie. the first/last page
-  const isFirstPage = useCallback(() => pageIndex !== min, [pageIndex, min])
-  const isLastPage = useCallback(() => pageIndex === max - 1, [pageIndex, max])
+  const isFirstPage = useCallback(() => pageIndex === min, [pageIndex, min])
+  const isLastPage = useCallback(() => {
+    if (max === 0 && pageIndex === 0) return true
+    else return pageIndex === max - 1
+  }, [pageIndex, max])
 
   // Step 6: logic to handle back movement but not past first page
   const handleBack = useCallback(() => {
@@ -115,5 +118,7 @@ export function useBookLogic(data: BookProps): BookLogic {
 }
 
 export default useBookLogic
+
+
 
 

@@ -20,7 +20,7 @@ export function Book(props: BookProps) {
       caption={logic.captions[logic.index]}
       stepper={<Steps titles={logic.captions} current={logic.index} />}
       page={logic.page ?? <></>}
-      back={<Button variant="contained" onClick={logic.handleBack} disabled={!logic.isFirstPage()}> Back </Button>}
+      back={<Button variant="contained" onClick={logic.handleBack} disabled={logic.isFirstPage()}> Back </Button>}
       next={<Button variant="contained" onClick={async () => {
         if (logic.isLastPage())
           await logic.handleDone()
