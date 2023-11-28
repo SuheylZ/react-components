@@ -5,9 +5,9 @@ import { TextField } from '@mui/material'
 import useFormik2 from '../../../../hooks/useFormik2'
 import CompanyData from './data'
 import * as y from "yup"
-import { usePageEvents } from '../../hooks/usePageHandler'
+import { usePageEvents } from '../../hooks/usePageEvents'
 import PageEventsBase from '../../PageEventsBase'
-import { IPageEvents } from '../../interfaces'
+import { IPageEvents } from '../../utils/interfaces'
 
 function Company(_: unknown, ref: Ref<IPageEvents>) {
   const formik = useFormik2<CompanyData>(y.object<CompanyData>({
