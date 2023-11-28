@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import React, { ReactElement, Ref } from 'react'
-import { IPageEvents } from '../interfaces'
+import { IPageEvents } from '../utils/interfaces'
 
 export type PageProps = {
   id: string
