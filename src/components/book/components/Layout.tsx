@@ -1,7 +1,3 @@
-
-
-
-
 import { Box, Grid, Paper, Typography } from '@mui/material'
 import React, { ReactNode } from 'react'
 
