@@ -29,7 +29,8 @@ export function Person(props: unknown, ref: Ref<IPageEvents>) {
   usePageEvents(ref,
     new class MyClass extends PageEventsBase {
       override onLoad(args: object | string | unknown) {
-        formik.setValues(JSON.parse(args as string))
+        const values = JSON.parse(args as string)
+        formik.setValues(values)
       }
       override onSave(): object | string | unknown {
         return JSON.stringify(formik.values)

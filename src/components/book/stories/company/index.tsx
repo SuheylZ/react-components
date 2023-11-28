@@ -22,7 +22,8 @@ function Company(_: unknown, ref: Ref<IPageEvents>) {
 
   usePageEvents(ref, new class myEvents extends PageEventsBase {
     override onLoad(arg: unknown): void {
-      formik.setValues(JSON.parse(arg as string))
+      const values = JSON.parse(arg as string)
+      formik.setValues(values)
     }
     override onSave() {
       return JSON.stringify(formik.values)
